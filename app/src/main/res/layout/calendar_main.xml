@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="16dp"
+    android:id="@+id/googlecal_main">
+
+
+    <Button
+        android:id="@+id/signout"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:text="Signout" />
+
+    <Button
+        android:id="@+id/getdata"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/signout"
+        android:text="Get" />
+
+    <Button
+        android:id="@+id/changedata"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/signout"
+        android:text="Change" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/listView" />
+
+    <EditText
+        android:id="@+id/inputid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/listView"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/inputdata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_below="@+id/inputid"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/postdata"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/getdata"
+        android:layout_toEndOf="@+id/getdata"
+        android:text="Post" />
+
+
+</RelativeLayout>
