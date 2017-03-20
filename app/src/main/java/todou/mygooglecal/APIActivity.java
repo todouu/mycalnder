@@ -16,8 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -59,13 +57,9 @@ public class APIActivity extends AppCompatActivity implements GoogleApiClient.Co
     private static final int LOCATION_PERMISSION_RESULT = 17;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    //private TextView mLatText;
-    //private TextView mLonText;
     private double mLat;
     private double mLon;
-    private Location mLastLocation;
     private LocationListener mLocationListener;
-    private TextView test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,11 +75,6 @@ public class APIActivity extends AppCompatActivity implements GoogleApiClient.Co
                     .build();
         }
 
-        //mLatText = (TextView) findViewById(R.id.lat_output);
-        //mLonText = (TextView) findViewById(R.id.long_output);
-        //mLatText.setText("44.5");
-        //mLonText.setText("-123.2");
-
         mLocationRequest = LocationRequest.create();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         mLocationRequest.setInterval(2);
@@ -94,20 +83,15 @@ public class APIActivity extends AppCompatActivity implements GoogleApiClient.Co
             @Override
             public void onLocationChanged(Location location) {
                 if (location != null) {
-                    //mLonText.setText(String.valueOf(location.getLongitude()));
-                    //mLatText.setText(String.valueOf(location.getLatitude()));
                     mLat = location.getLatitude();
                     mLon = location.getLongitude();
                 } else {
-                    //mLonText.setText("Null");
-                    //mLatText.setText("Null");
                     mLat = 0.10;
                     mLon = 1.01;
-
                 }
             }
-
         };
+
         ((Button) findViewById(R.id.getdata)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,7 +115,6 @@ public class APIActivity extends AppCompatActivity implements GoogleApiClient.Co
                                     @Override
                                     public void onResponse(Call call, Response response) throws IOException {
                                         String r = response.body().string();
-                                        Log.i("response.body", response.body().string());
                                         try {
                                             JSONObject j = new JSONObject(r);
                                             JSONArray items = j.getJSONArray("items");
@@ -182,20 +165,10 @@ public class APIActivity extends AppCompatActivity implements GoogleApiClient.Co
                                 mOkHttpClient = new OkHttpClient();
                                 EditText raw_caid = (EditText) findViewById(R.id.inputid);
                                 String text_caid = raw_caid.getText().toString();
+                                EditText raw_infor = (EditText) findViewById(R.id.extradata);
+                                String text_infor = raw_infor.getText().toString();
                                 HttpUrl reqUrl = HttpUrl.parse("https://www.googleapis.com/calendar/v3/calendars/" + text_caid);
-
-                                //TextView edittext_lat = (TextView) findViewById(R.id.lat_output);
-                                //TextView edittext_long = (TextView) findViewById(R.id.long_output);
-                                //String text_lat = edittext_lat.getText().toString();
-                                //String text_long = edittext_long.getText().toString();
-
-                                //String loca = "My location is: ";
-                                //String lat = "Latitude: ";
-                                //String lon = "Longitude: ";
-                                //String comma = ", ";
-
-                                //String json = "{ 'location' : ' " + loca + "" + lat + "" + mLat + ", " + lon + "" + mLon + " ' }";
-                                String json = "{ 'location' : 'Latitude: " + mLat + " Longtitude: " + mLon + " '}";
+                                String json = "{ 'location' : 'Latitude: " + mLat + " Longtitude: " + mLon + " || "+text_infor +" '}";
                                 RequestBody body = RequestBody.create(JSON, json);
                                 Request request = new Request.Builder()
                                         .url(reqUrl)
@@ -233,14 +206,9 @@ public class APIActivity extends AppCompatActivity implements GoogleApiClient.Co
                                 mOkHttpClient = new OkHttpClient();
                                 HttpUrl reqUrl = HttpUrl.parse("https://www.googleapis.com/calendar/v3/calendars");
                                 EditText raw_title = (EditText) findViewById(R.id.inputdata);
-                                //EditText edittext_description = (EditText) findViewById(R.id.new_description);
                                 String text_title = raw_title.getText().toString();
-                                //String text_description = edittext_description.getText().toString();
-                                //string Jason = "{ 'object': ' " + variableName + " '}"
                                 double defual_location = 0;
                                 String json = "{ 'location' : ' " + defual_location + " ', 'summary' : ' " + text_title + " '}";
-                                Log.i("fuck here~", text_title);
-                                Log.i("this::", json);
                                 RequestBody body = RequestBody.create(JSON, json);
                                 Request request = new Request.Builder()
                                         .url(reqUrl)
@@ -341,12 +309,13 @@ public class APIActivity extends AppCompatActivity implements GoogleApiClient.Co
     }
 
     void updateAuthState() {
+
         Uri authEndpoint = new Uri.Builder().scheme("https").authority("accounts.google.com").path("/o/oauth2/v2/auth").build();
         Uri tokenEndpoint = new Uri.Builder().scheme("https").authority("www.googleapis.com").path("/oauth2/v4/token").build();
         Uri redirect = new Uri.Builder().scheme("todou.mygooglecal").path("foo").build();
 
         AuthorizationServiceConfiguration config = new AuthorizationServiceConfiguration(authEndpoint, tokenEndpoint, null);
-        AuthorizationRequest req = new AuthorizationRequest.Builder(config, "1090758373959-2frho385rre3j6vrdlm0auig8t9brsrs.apps.googleusercontent.com", ResponseTypeValues.CODE, redirect)
+        AuthorizationRequest req = new AuthorizationRequest.Builder(config, "1090758373959-qr25e2u3b2ljapj8a9qq0nnmir6rfp20.apps.googleusercontent.com", ResponseTypeValues.CODE, redirect)
                 .setScope("https://www.googleapis.com/auth/calendar")
                 .build();
 

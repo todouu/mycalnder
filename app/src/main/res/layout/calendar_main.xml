@@ -36,25 +36,35 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_alignParentStart="true"
+        android:id="@+id/listView"
         android:layout_alignParentTop="true"
-        android:id="@+id/listView" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/inputid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
         android:layout_below="@+id/listView"
-        android:layout_centerHorizontal="true" />
+        android:layout_marginTop="14dp"
+        android:text="Id"
+        android:layout_toStartOf="@+id/changedata"
+        android:layout_alignEnd="@+id/postdata" />
 
     <EditText
         android:id="@+id/inputdata"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/inputid"
-        android:layout_centerHorizontal="true" />
+        android:text="Title"
+        android:layout_alignBaseline="@+id/inputid"
+        android:layout_alignBottom="@+id/inputid"
+        android:layout_toEndOf="@+id/inputid" />
+    <EditText
+        android:id="@+id/extradata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputdata"
+        android:text="Extra"
+        />
 
     <Button
         android:id="@+id/postdata"
