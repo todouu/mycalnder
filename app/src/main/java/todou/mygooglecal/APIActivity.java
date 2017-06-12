@@ -315,7 +315,7 @@ public class APIActivity extends AppCompatActivity implements GoogleApiClient.Co
         Uri redirect = new Uri.Builder().scheme("todou.mygooglecal").path("foo").build();
 
         AuthorizationServiceConfiguration config = new AuthorizationServiceConfiguration(authEndpoint, tokenEndpoint, null);
-        AuthorizationRequest req = new AuthorizationRequest.Builder(config, "1090758373959-qr25e2u3b2ljapj8a9qq0nnmir6rfp20.apps.googleusercontent.com", ResponseTypeValues.CODE, redirect)
+        AuthorizationRequest req = new AuthorizationRequest.Builder(config, "1090758373959-eb2s9rrfs43498dikh20lpou2u7rl3i5.apps.googleusercontent.com", ResponseTypeValues.CODE, redirect)
                 .setScope("https://www.googleapis.com/auth/calendar")
                 .build();
 
